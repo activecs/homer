@@ -387,11 +387,9 @@ the "Config" > "General" section of the SABnzbd config in the SABnzbd web UI.
   downloadInterval: 5000 # (Optional) Interval (in ms) for updating the download count
 ```
 
-## OctoPrint/Moonraker
+## OctoPrint
 
-The OctoPrint/Moonraker service only needs an `apikey` & `endpoint` and optionally a `display` or `url` option. `url` can be used when you click on the service it will launch the `url`
-
-Moonraker's API mimmicks a few of OctoPrint's endpoints which makes these services compatible. See https://moonraker.readthedocs.io/en/latest/web_api/#octoprint-api-emulation for details.
+The OctoPrint service only needs an `apikey` & `url` and optionally a `display` option.
 
 ```yaml
 - name: "Octoprint"
