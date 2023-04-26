@@ -71,11 +71,15 @@ export default {
   },
   methods: {
     fetchStatus: async function () {
-      const headers = {
-        "X-Api-Key": this.item.apikey,
+      const options = {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "X-Api-Key": this.item.apikey,
+        },
       };
 
-      this.endpoints = await this.fetch("/api/endpoints", { headers }).catch(
+      this.endpoints = await this.fetch("/api/endpoints", options).catch(
         (e) => {
           console.error(e);
         }
@@ -90,11 +94,9 @@ export default {
           continue;
         }
         const uri = `/api/endpoints/${endpoint.Id}/docker/containers/json?all=1`;
-        const endpointContainers = await this.fetch(uri, { headers }).catch(
-          (e) => {
-            console.error(e);
-          }
-        );
+        const endpointContainers = await this.fetch(uri, options).catch((e) => {
+          console.error(e);
+        });
 
         if (endpointContainers) {
           containers = containers.concat(endpointContainers);

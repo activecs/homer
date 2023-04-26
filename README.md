@@ -78,7 +78,7 @@ It's meant to be served by an HTTP server, **it will not work if you open the in
 
 ```sh
 docker run -d \
-  -p 8080:8080 \
+  -p 8060:8060 \
   -v </your/local/assets/>:/www/assets \
   --restart=always \
   b4bz/homer:latest
@@ -94,8 +94,8 @@ Install example configuration file & assets (favicons, ...) to help you get star
 * **`SUBFOLDER`** (default: `null`)
 If you would like to host Homer in a subfolder, (ex: *http://my-domain/**homer***), set this to the subfolder path (ex `/homer`).
 
-* **`PORT`** (default: `8080`)
-If you would like to change internal port of Homer from default `8080` to your port choice.
+* **`PORT`** (default: `8060`)
+If you would like to change internal port of Homer from default `8060` to your port choice.
 
 
 #### With docker-compose
