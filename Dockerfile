@@ -4,6 +4,8 @@ FROM node:lts-alpine as build-stage
 WORKDIR /app
 
 COPY package*.json ./
+COPY .babelrc ./
+COPY postinstall.js ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
