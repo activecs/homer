@@ -80,8 +80,8 @@ export default {
     fetchCount: async function (client) {
       try {
         let torrentResponse = await client.getTorrents(GetTorrentRequest.of({fields: ["id", "status"]}));
-        let activeTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status === 6);
-        let inActiveTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status !== 6);
+        let activeTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status === 6 || torrent.status === 4);
+        let inActiveTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status !== 6 && torrent.status !== 4);
         this.active = activeTorrents.length;
         this.inactive = inActiveTorrents.length;
         this.error = false;
@@ -93,7 +93,7 @@ export default {
     getRate: async function (client) {
       try {
         let torrentResponse = await client.getTorrents(GetTorrentRequest.of({fields: ["name","status", "rateDownload", "rateUpload"]}));
-        let activeTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status === 6);
+        let activeTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status === 6 || torrent.status === 4);
         let rateDownload = activeTorrents.reduce((total, torrent) => total + torrent.rateDownload, 0);
         let rateUpload = activeTorrents.reduce((total, torrent) => total + torrent.rateUpload, 0);
         this.dl = rateDownload
