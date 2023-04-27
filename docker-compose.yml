@@ -1,12 +1,12 @@
 version: "3"
 services:
-  homer:
+  eduard-homer:
     image: deduard/homer
     #To build from source, comment previous line and uncomment below
     #build: .
-    container_name: homer
+    container_name: eduard-homer
     volumes:
-      - /home/eduard/projects/homelab/homer:/www/assets
+      - /home/eduard/projects/homelab/apps/homer/public/assets:/www/assets
     ports:
       - 8060:8060
     user: 1000:1000 # default
