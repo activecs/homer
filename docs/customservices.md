@@ -31,7 +31,7 @@ within Homer:
   - [Speedtest Tracker](#SpeedtestTracker)
   - [What's Up Docker](#whats-up-docker)
   - [SABnzbd](#sabnzbd)
-  - [OctoPrint](#sabnzbd)
+  - [OctoPrint](#octoprint)
   - [Tdarr](#tdarr)
 
 If you experiencing any issue, please have a look to the [troubleshooting](troubleshooting.md) page.
@@ -327,7 +327,7 @@ servers can be found at [enable-cors.org](https://enable-cors.org/server.html).
 ```yaml
 - name: "qBittorrent"
   logo: "assets/tools/sample.png"
-  url: "http://192.168.1.2:8060" # Your rTorrent web UI, f.e. ruTorrent or Flood.
+  url: "http://192.168.1.2:8080" # Your rTorrent web UI, f.e. ruTorrent or Flood.
   type: "qBittorrent"
   rateInterval: 2000 # Interval for updating the download and upload rates.
   torrentInterval: 5000 # Interval for updating the torrent count.
@@ -378,7 +378,7 @@ the "Config" > "General" section of the SABnzbd config in the SABnzbd web UI.
 ```yaml
 - name: "SABnzbd"
   logo: "assets/tools/sample.png"
-  url: "http://192.168.0.151:8060"
+  url: "http://192.168.0.151:8080"
   type: "SABnzbd"
   apikey: "MY-SUPER-SECRET-API-KEY"
   downloadInterval: 5000 # (Optional) Interval (in ms) for updating the download count
@@ -391,8 +391,8 @@ The OctoPrint service only needs an `apikey` & `url` and optionally a `display` 
 ```yaml
 - name: "Octoprint"
   logo: "https://cdn-icons-png.flaticon.com/512/3112/3112529.png"
-  apikey: "xxxxxxxxxxxx" # insert your own API key here. Request one from https://openweathermap.org/api.
-  url: "http://192.168.0.151:8060"
+  apikey: "xxxxxxxxxxxx" # insert your own API key here.
+  endpoint: "http://192.168.0.151:8080"
   display: "text" # 'text' or 'bar'. Default to `text`.
   type: "OctoPrint"
 ```
