@@ -162,10 +162,10 @@ export default {
       value.total += items.data.length;
       value.running += items.data.filter((i) => i.status === "running").length;
       // if no vms, hide this value:
-      if (value.total == 0) this.hide.push("lxcs");
+      if (value.total === 0) this.hide.push("lxcs");
     },
     isValueShown(value) {
-      return this.hide.indexOf(value) == -1;
+      return this.hide.indexOf(value) === -1;
     },
   },
 };
@@ -173,7 +173,7 @@ export default {
 
 <style scoped lang="scss">
 .is-number {
-  font-family: "Lato";
+  font-family: "Lato",serif;
 }
 .healthy {
   color: green;

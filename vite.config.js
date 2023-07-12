@@ -10,6 +10,16 @@ export default defineConfig({
   build: {
     assetsDir: "resources",
   },
+  server: {
+    proxy: {
+      "/cf": {
+        target: "https://api.cloudflare.com",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/cf/, ""),
+      },
+    },
+  },
   plugins: [
     vue(),
     VitePWA({
