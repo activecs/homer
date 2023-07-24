@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useI18n } from 'vue-i18n'
 
 export default {
     props: {
@@ -58,6 +59,11 @@ export default {
                     this.item.useCredentials === true ? "include" : "omit";
             }
             return Object.assign(options, init);
+        },
+
+        translate: function (key, objects) {
+            const { t } = useI18n({ inheritLocale: true, fallbackLocale: 'en', locale: this.$i18n.locale})
+            return t(key, objects)
         }
     },
 }

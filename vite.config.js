@@ -1,6 +1,5 @@
 import { VitePWA } from "vite-plugin-pwa";
 import { fileURLToPath, URL } from "url";
-
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
@@ -17,6 +16,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/cf/, ""),
+      },
+      "/ts": {
+        target: "https://api.tailscale.com",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/ts/, ""),
       },
     },
   },

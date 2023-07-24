@@ -1,0 +1,24 @@
+{
+  "tailscale": {
+    "address": "Адреса",
+    "expires": "Дійсний до",
+    "never": "Ніколи",
+    "last_seen": "Востаннє у мережі",
+    "now": "Зараз",
+    "years": "{{number}}р",
+    "weeks": "{{number}}тиж",
+    "days": "{{number}}д",
+    "hours": "{{number}}год",
+    "minutes": "{{number}}хв",
+    "seconds": "{{number}}с",
+    "ago": "{{value}} тому"
+  },
+  "qnap": {
+    "cpuUsage": "Використання CPU",
+    "memUsage": "Використання пам'яті",
+    "systemTempC": "Температура системи",
+    "poolUsage": "Використання пулу",
+    "volumeUsage": "Гучність",
+    "invalid": "Недійсний"
+  }
+}
