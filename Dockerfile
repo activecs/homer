@@ -9,7 +9,7 @@ COPY postinstall.js ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
-RUN yarn build
+RUN npm install
 
 # production stage
 FROM alpine:3.16

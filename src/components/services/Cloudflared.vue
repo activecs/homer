@@ -6,12 +6,8 @@
         <template v-if="item.subtitle">
           {{ item.subtitle }}
         </template>
-        <template v-if="connections">
-          AC:{{ connections }}
-        </template>
-        <template v-if="originIp">
-          IP:{{ originIp }}
-        </template>
+        <template v-if="connections"> AC:{{ connections }} </template>
+        <template v-if="originIp"> IP:{{ originIp }} </template>
       </p>
     </template>
     <template #indicator>
@@ -26,7 +22,6 @@
 import service from "@/mixins/service.js";
 import Generic from "./Generic.vue";
 
-
 export default {
   name: "Cloudflared",
   mixins: [service],
@@ -36,7 +31,7 @@ export default {
   components: {
     Generic,
   },
-  data: () => ({statsData: "", error: ""}),
+  data: () => ({ statsData: "", error: "" }),
   computed: {
     status: function () {
       if (this.statsData) {
@@ -54,7 +49,7 @@ export default {
     },
     originIp: function () {
       if (this.statsData) {
-        return this.statsData.result.connections[0]?.origin_ip
+        return this.statsData.result.connections[0]?.origin_ip;
       }
       return "";
     },
@@ -66,15 +61,17 @@ export default {
     fetchStatus: async function () {
       const options = {
         headers: {
-          "Authorization": `Bearer ${this.item.key}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${this.item.key}`,
+          "Content-Type": "application/json",
         },
       };
-      this.statsData = await this.proxyFetch(`/cf/client/v4/accounts/${this.item.accountid}/cfd_tunnel/${this.item.tunnelid}`, options)
-          .catch((e) => {
-            console.log(e)
-            this.error = e.message
-          });
+      this.statsData = await this.proxyFetch(
+        `/cf/client/v4/accounts/${this.item.accountid}/cfd_tunnel/${this.item.tunnelid}`,
+        options,
+      ).catch((e) => {
+        console.log(e);
+        this.error = e.message;
+      });
     },
   },
 };

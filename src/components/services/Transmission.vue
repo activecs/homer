@@ -27,8 +27,8 @@
 <script>
 import service from "@/mixins/service.js";
 import Generic from "./Generic.vue";
-import {TransmissionClient} from "transmission-rpc-client/src/client/Client";
-import {GetTorrentRequest} from "transmission-rpc-client/src/model/torrent/GetTorrent";
+import { TransmissionClient } from "transmission-rpc-client/src/client/Client";
+import { GetTorrentRequest } from "transmission-rpc-client/src/model/torrent/GetTorrent";
 const units = ["B", "KB", "MB", "GB"];
 
 // Take the rate in bytes and keep dividing it by 1k until the lowest
@@ -43,7 +43,7 @@ const displayRate = (rate) => {
   }
   return (
     Intl.NumberFormat(undefined, { maximumFractionDigits: 2 }).format(
-      rate || 0
+      rate || 0,
     ) + ` ${units[i]}/s`
   );
 };
@@ -53,7 +53,13 @@ export default {
   mixins: [service],
   props: { item: Object },
   components: { Generic },
-  data: () => ({ dl: null, ul: null, active: null, inactive: null, error: null }),
+  data: () => ({
+    dl: null,
+    ul: null,
+    active: null,
+    inactive: null,
+    error: null,
+  }),
   computed: {
     downRate: function () {
       return displayRate(this.dl);
@@ -63,7 +69,7 @@ export default {
     },
   },
   created() {
-    const client = new TransmissionClient({host: this.item.xmlrpc});
+    const client = new TransmissionClient({ host: this.item.xmlrpc });
     const rateInterval = parseInt(this.item.rateInterval, 10) || 0;
     const torrentInterval = parseInt(this.item.torrentInterval, 10) || 0;
     if (rateInterval > 0) {
@@ -79,9 +85,15 @@ export default {
   methods: {
     fetchCount: async function (client) {
       try {
-        let torrentResponse = await client.getTorrents(GetTorrentRequest.of({fields: ["id", "status"]}));
-        let activeTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status === 6 || torrent.status === 4);
-        let inActiveTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status !== 6 && torrent.status !== 4);
+        let torrentResponse = await client.getTorrents(
+          GetTorrentRequest.of({ fields: ["id", "status"] }),
+        );
+        let activeTorrents = torrentResponse.arguments.torrents.filter(
+          (torrent) => torrent.status === 6 || torrent.status === 4,
+        );
+        let inActiveTorrents = torrentResponse.arguments.torrents.filter(
+          (torrent) => torrent.status !== 6 && torrent.status !== 4,
+        );
         this.active = activeTorrents.length;
         this.inactive = inActiveTorrents.length;
         this.error = false;
@@ -92,12 +104,24 @@ export default {
     },
     getRate: async function (client) {
       try {
-        let torrentResponse = await client.getTorrents(GetTorrentRequest.of({fields: ["name","status", "rateDownload", "rateUpload"]}));
-        let activeTorrents = torrentResponse.arguments.torrents.filter(torrent => torrent.status === 6 || torrent.status === 4);
-        let rateDownload = activeTorrents.reduce((total, torrent) => total + torrent.rateDownload, 0);
-        let rateUpload = activeTorrents.reduce((total, torrent) => total + torrent.rateUpload, 0);
-        this.dl = rateDownload
-        this.ul = rateUpload
+        let torrentResponse = await client.getTorrents(
+          GetTorrentRequest.of({
+            fields: ["name", "status", "rateDownload", "rateUpload"],
+          }),
+        );
+        let activeTorrents = torrentResponse.arguments.torrents.filter(
+          (torrent) => torrent.status === 6 || torrent.status === 4,
+        );
+        let rateDownload = activeTorrents.reduce(
+          (total, torrent) => total + torrent.rateDownload,
+          0,
+        );
+        let rateUpload = activeTorrents.reduce(
+          (total, torrent) => total + torrent.rateUpload,
+          0,
+        );
+        this.dl = rateDownload;
+        this.ul = rateUpload;
         this.error = false;
       } catch (e) {
         this.error = true;

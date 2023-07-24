@@ -1,14 +1,10 @@
 <template>
   <Generic :item="item">
     <template #content>
-      <p class="title is-4">{{ item.name }}:  {{hostname}}</p>
+      <p class="title is-4">{{ item.name }}: {{ hostname }}</p>
       <p class="subtitle is-6">
-        <template v-if="address">
-          IP:{{ address }}
-        </template>
-        <template v-if="lastSeen">
-          , seen:{{ lastSeen }}
-        </template>
+        <template v-if="address"> IP:{{ address }} </template>
+        <template v-if="lastSeen"> , seen:{{ lastSeen }} </template>
       </p>
     </template>
     <template #indicator>
@@ -23,7 +19,6 @@
 import service from "@/mixins/service.js";
 import Generic from "./Generic.vue";
 
-
 export default {
   name: "Tailscale",
   mixins: [service],
@@ -33,10 +28,10 @@ export default {
   components: {
     Generic,
   },
-  data: () => ({statsData: "", error: ""}),
+  data: () => ({ statsData: "", error: "" }),
   computed: {
     status: function () {
-      if(this.statsData && this.statsData.updateAvailable) {
+      if (this.statsData && this.statsData.updateAvailable) {
         return "update";
       } else if (this.statsData && this.statsData.addresses) {
         return "healthy";
@@ -62,19 +57,22 @@ export default {
         const now = new Date();
         const date = new Date(this.statsData.lastSeen);
         const diff = this.compareDifferenceInTwoDates(date, now);
-        return diff === "Now" ? this.translate("tailscale.now") : this.translate("tailscale.ago", { value: diff });
+        return diff === "Now"
+          ? this.translate("tailscale.now")
+          : this.translate("tailscale.ago", { value: diff });
       }
       return "";
     },
     expiry: function () {
       if (this.statsData) {
-        if (this.statsData.keyExpiryDisabled) return this.translate("tailscale.never");
+        if (this.statsData.keyExpiryDisabled)
+          return this.translate("tailscale.never");
         const now = new Date();
         const date = new Date(this.statsData.expires);
         return this.compareDifferenceInTwoDates(now, date);
       }
       return "";
-    }
+    },
   },
   async created() {
     await this.fetchStatus();
@@ -83,32 +81,40 @@ export default {
     fetchStatus: async function () {
       const options = {
         headers: {
-          "Authorization": `Bearer ${this.item.key}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${this.item.key}`,
+          "Content-Type": "application/json",
         },
       };
-      this.statsData = await this.proxyFetch(`/ts/api/v2/device/${this.item.deviceid}`, options)
-          .catch((e) => {
-            console.log(e)
-            this.error = e.message
-          });
+      this.statsData = await this.proxyFetch(
+        `/ts/api/v2/device/${this.item.deviceid}`,
+        options,
+      ).catch((e) => {
+        console.log(e);
+        this.error = e.message;
+      });
     },
-    compareDifferenceInTwoDates: function(priorDate, futureDate) {
+    compareDifferenceInTwoDates: function (priorDate, futureDate) {
       const diff = futureDate.getTime() - priorDate.getTime();
       const diffInYears = Math.ceil(diff / (1000 * 60 * 60 * 24 * 365));
-      if (diffInYears > 1) return this.translate("tailscale.years", { number: diffInYears });
+      if (diffInYears > 1)
+        return this.translate("tailscale.years", { number: diffInYears });
       const diffInWeeks = Math.ceil(diff / (1000 * 60 * 60 * 24 * 7));
-      if (diffInWeeks > 1) return this.translate("tailscale.weeks", { number: diffInWeeks });
+      if (diffInWeeks > 1)
+        return this.translate("tailscale.weeks", { number: diffInWeeks });
       const diffInDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-      if (diffInDays > 1) return this.translate("tailscale.days", { number: diffInDays });
+      if (diffInDays > 1)
+        return this.translate("tailscale.days", { number: diffInDays });
       const diffInHours = Math.ceil(diff / (1000 * 60 * 60));
-      if (diffInHours > 1) return this.translate("tailscale.hours", { number: diffInHours });
+      if (diffInHours > 1)
+        return this.translate("tailscale.hours", { number: diffInHours });
       const diffInMinutes = Math.ceil(diff / (1000 * 60));
-      if (diffInMinutes > 1) return this.translate("tailscale.minutes", { number: diffInMinutes });
+      if (diffInMinutes > 1)
+        return this.translate("tailscale.minutes", { number: diffInMinutes });
       const diffInSeconds = Math.ceil(diff / 1000);
-      if (diffInSeconds > 10) return this.translate("tailscale.seconds", { number: diffInSeconds });
+      if (diffInSeconds > 10)
+        return this.translate("tailscale.seconds", { number: diffInSeconds });
       return "Now";
-    }
+    },
   },
 };
 </script>

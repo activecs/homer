@@ -82,7 +82,7 @@ export default {
       this.endpoints = await this.fetch("/api/endpoints", options).catch(
         (e) => {
           console.error(e);
-        }
+        },
       );
 
       let containers = [];

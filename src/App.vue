@@ -208,7 +208,7 @@ export default {
 
         if (this.currentPage !== "default") {
           let pageConfig = await this.getConfig(
-            `assets/${this.currentPage}.yml`
+            `assets/${this.currentPage}.yml`,
           );
           config = Object.assign(config, pageConfig);
         }
