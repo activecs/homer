@@ -5,8 +5,8 @@
       <p class="subtitle is-6">
         <span v-if="error" class="error">An error has occurred.</span>
         <template v-else>
+          <span class="up monospace"> v:{{ncversion}}</span>
           <span class="down monospace"> free:{{ freespace }} </span>
-          <span class="up monospace"> usage:{{ usage }}% </span>
         </template>
       </p>
     </template>
@@ -51,6 +51,7 @@ export default {
   props: { item: Object },
   components: { Generic },
   data: () => ({
+    ncversion: null,
     freespace: null,
     activeusers: null,
     numfiles: null,
@@ -59,35 +60,31 @@ export default {
   }),
   computed: {},
   async created() {
-    let nextcloudInfo = await this.fetchStatus();
-    this.prepareOutput(nextcloudInfo);
+    let nextcloudResponse = await this.fetchStatus();
+    this.prepareOutput(nextcloudResponse.ocs.data);
   },
   methods: {
+
     fetchStatus: async function () {
       const options = {
         method: "GET",
-        mode: "cors",
         headers: {
           Authorization: `Basic ${Buffer.from(
-            `${this.item.username}:${this.item.password}`,
+              `${this.item.username}:${this.item.password}`,
           ).toString("base64")}`,
         },
       };
-      return await this.fetch(
-        "/ocs/v2.php/apps/serverinfo/api/v1/info?format=json",
-        options,
-      )
-        .then((serverinfo) => serverinfo?.ocs?.data)
-        .catch((e) => {
-          console.error(e);
-          this.error = e.message;
-        });
+      return await this.proxyFetch("/nc/ocs/v2.php/apps/serverinfo/api/v1/info?format=json", options)
+          .catch((e) => {
+            console.log(e);
+            this.error = e.message;
+      });
     },
+
     prepareOutput: function (nextcloudInfo) {
+      this.ncversion = nextcloudInfo.nextcloud.system.version;
       this.usage = formatUsage(nextcloudInfo.nextcloud);
-      this.freespace = formatFreespace(
-        nextcloudInfo.nextcloud.system.freespace,
-      );
+      this.freespace = formatFreespace(nextcloudInfo.nextcloud.system.freespace);
       this.numfiles = nextcloudInfo.nextcloud.storage.num_files;
       this.activeusers = nextcloudInfo.activeUsers.last24hours;
     },

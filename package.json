@@ -1,6 +1,6 @@
 {
   "name": "homer",
-  "version": "23.07.24",
+  "version": "23.07.26",
   "scripts": {
     "postinstall": "node postinstall.js",
     "dev": "vite --port 8099",

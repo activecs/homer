@@ -10,6 +10,7 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 RUN npm install
+RUN yarn build
 
 # production stage
 FROM alpine:3.16

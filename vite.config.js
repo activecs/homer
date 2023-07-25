@@ -23,6 +23,11 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/ts/, ""),
       },
+      "/nc": {
+        target: "http://homer.dereza.home",
+        changeOrigin: true,
+        secure: false
+      },
     },
   },
   plugins: [
