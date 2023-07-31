@@ -1,4 +1,4 @@
-<h2>
+<h3>
  <img
   width="180"
   alt="Homer's donut"
@@ -9,7 +9,7 @@
     - Added services: Tailscale, Transmission, Nextcloud, Cloudflare
     <br/>
     - Added nginx reverse proxy to deal with CORS issues 
-</h2>
+</h3>
 
 ### Sample nginx config
 ```nginx 
