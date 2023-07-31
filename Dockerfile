@@ -6,14 +6,14 @@ WORKDIR /app
 COPY package*.json ./
 COPY .babelrc ./
 COPY postinstall.js ./
-RUN yarn install --frozen-lockfile
+RUN npm install
 
 COPY . .
-RUN npm install
-RUN yarn build
+
+RUN npm run build
 
 # production stage
-FROM alpine:3.16
+FROM alpine:3.18
 
 ENV GID 1000
 ENV UID 1000

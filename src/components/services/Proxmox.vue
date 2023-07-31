@@ -88,14 +88,8 @@ export default {
     Generic,
   },
   data: () => ({
-    vms: {
-      total: 0,
-      running: 0,
-    },
-    lxcs: {
-      total: 0,
-      running: 0,
-    },
+    vms: {},
+    lxcs: {},
     memoryUsed: 0,
     diskUsed: 0,
     cpuUsed: 0,
@@ -105,6 +99,7 @@ export default {
   }),
   created() {
     if (this.item.hide) this.hide = this.item.hide;
+    setInterval(() => this.fetchStatus(), 4000);
     this.fetchStatus();
   },
   methods: {
@@ -120,8 +115,8 @@ export default {
             Authorization: this.item.api_token,
           },
         };
-        const status = await this.fetch(
-          `/api2/json/nodes/${this.item.node}/status`,
+        const status = await this.proxyFetch(
+          `/px/api2/json/nodes/${this.item.node}/status`,
           options,
         );
         // main metrics:
@@ -137,16 +132,18 @@ export default {
         this.cpuUsed = (status.data.cpu * 100).toFixed(decimalsToShow);
         // vms:
         if (this.isValueShown("vms")) {
-          const vms = await this.fetch(
-            `/api2/json/nodes/${this.item.node}/qemu`,
+          this.vms = { total: 0, running: 0 };
+          const vms = await this.proxyFetch(
+            `/px/api2/json/nodes/${this.item.node}/qemu`,
             options,
           );
           this.parseVMsAndLXCs(vms, this.vms);
         }
         // lxc containers:
         if (this.isValueShown("lxcs")) {
-          const lxcs = await this.fetch(
-            `/api2/json/nodes/${this.item.node}/lxc`,
+          this.lxcs = { total: 0, running: 0 };
+          const lxcs = await this.proxyFetch(
+            `/px/api2/json/nodes/${this.item.node}/lxc`,
             options,
           );
           this.parseVMsAndLXCs(lxcs, this.lxcs);
