@@ -12,12 +12,12 @@
 </h2>
 
 ### Sample nginx config
-    events {
-worker_connections  1024;
+```nginx 
+events {
+    worker_connections  1024;
 }
 
 http {
-
     server {
         listen 80 default_server;
 
@@ -71,9 +71,10 @@ http {
     }
 
 }
-```nginx
+```
 
 ### Installation witch docker-compose
+```yaml
 services:
   nginx:
     container_name: nginx
@@ -90,11 +91,11 @@ services:
     build: ./homer
     restart: unless-stopped
 
-```yaml
+```
 
 ### Build manually
 
-```sh
+```bash
 # Using yarn
 yarn install
 yarn build
