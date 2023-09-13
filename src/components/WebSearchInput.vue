@@ -159,7 +159,7 @@ export default {
 .web-search-container {
   display: flex;
   justify-content: center;
-  margin: 40px auto;
+  margin: 25px auto;
 }
 .web-search-bar {
   position: relative;
