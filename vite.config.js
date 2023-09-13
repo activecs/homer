@@ -28,6 +28,16 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       },
+      "/ppngx": {
+        target: "http://homer.dereza.home",
+        changeOrigin: true,
+        secure: false
+      },
+      "/pxbck": {
+        target: "http://homer.dereza.home",
+        changeOrigin: true,
+        secure: false
+      },
     },
   },
   plugins: [
