@@ -56,18 +56,18 @@ export default {
   },
   computed: {
     humanizeSize: function () {
-      let bytes = this.usage;
+        let bytes = this.usage;
       if (Math.abs(bytes) < 1024)
         return bytes + ' B';
 
-      const units = ['KiB', 'MiB', 'GiB', 'TiB'];
-      let u = -1;
-      do {
-        bytes /= 1024;
-        ++u;
-      } while (Math.round(Math.abs(bytes) * 100) / 100 >= 1024 && u < units.length - 1);
+        const units = ['KiB', 'MiB', 'GiB', 'TiB'];
+        let u = -1;
+        do {
+                bytes /= 1024;
+                ++u;
+        } while (Math.round(Math.abs(bytes) * 100) / 100 >= 1024 && u < units.length - 1);
 
-      return bytes.toFixed(2) + ' ' + units[u];
+        return bytes.toFixed(2) + ' ' + units[u];
     },
   },
   methods: {
@@ -77,16 +77,16 @@ export default {
       };
 
       this.fetch(`/api/server-info/stats`, { headers })
-          .then((stats) => {
-            this.photos = stats.photos;
-            this.videos = stats.videos;
-            this.usage = stats.usage;
-            this.users = stats.usageByUser.length;
-          })
-          .catch((e) => {
-            console.error(e);
-            this.serverError = true;
-          });
+        .then((stats) => {
+          this.photos = stats.photos;
+          this.videos = stats.videos;
+          this.usage = stats.usage;
+          this.users = stats.usageByUser.length;
+        })
+        .catch((e) => {
+          console.error(e);
+          this.serverError = true;
+        });
     },
   },
 };

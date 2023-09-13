@@ -15,10 +15,10 @@
           {{ errors }}
         </strong>
         <strong
-            v-if="serverError"
-            class="notif errors"
-            title="Connection error to Readarr API, check url and apikey in config.yml"
-        >?</strong
+          v-if="serverError"
+          class="notif errors"
+          title="Connection error to Readarr API, check url and apikey in config.yml"
+          >?</strong
         >
       </div>
     </template>
@@ -59,21 +59,21 @@ export default {
         this.serverError = true;
       };
       this.fetch(`${API}/health?apikey=${this.item.apikey}`)
-          .then((health) => {
-            this.warnings = health.filter((h) => h.type === "warning").length;
-            this.errors = health.filter((h) => h.type === "errors").length;
-          })
-          .catch(handleError);
+        .then((health) => {
+          this.warnings = health.filter((h) => h.type === "warning").length;
+          this.errors = health.filter((h) => h.type === "errors").length;
+        })
+        .catch(handleError);
       this.fetch(`${API}/queue?apikey=${this.item.apikey}`)
-          .then((queue) => {
-            this.activity = queue.totalRecords;
-          })
-          .catch(handleError);
+        .then((queue) => {
+          this.activity = queue.totalRecords;
+        })
+        .catch(handleError);
       this.fetch(`${API}/wanted/missing?apikey=${this.item.apikey}`)
-          .then((missing) => {
-            this.missing = missing.totalRecords;
-          })
-          .catch(handleError);
+        .then((missing) => {
+          this.missing = missing.totalRecords;
+        })
+        .catch(handleError);
     },
   },
 };
