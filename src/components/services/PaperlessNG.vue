@@ -44,7 +44,7 @@ export default {
         );
         return;
       }
-      this.api = await this.fetch("/api/documents/", {
+      this.api = await this.proxyFetch("/ppngx/api/documents/", {
         headers: {
           Authorization: "Token " + this.item.apikey,
         },
