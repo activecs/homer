@@ -16,6 +16,20 @@ defaults:
   # auto, light, dark
   colorTheme: auto
 
+searchEngines:
+  # name: name of search engine
+  # url: entrypoint of search
+  # icon: favicon
+  # key: query key of the search request
+  - name: google
+    url: "https://www.google.com/search"
+    icon: "https://www.google.com/favicon.ico"
+    key: "g"
+  - name: duckduckgo
+    url: "https://duckduckgo.com"
+    icon: "https://duckduckgo.com/favicon.ico"
+    key: "q"
+
 theme: default
 colors:
   light:
@@ -32,6 +46,8 @@ colors:
     link: "#3273dc"
     link-hover: "#363636"
     background-image: ""
+    box-shadow: rgba(0, 0, 0, 0.145) 0px 4px 8px, rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    web-search-background: "rgba(255, 255, 255, 0.5);"
   dark:
     highlight-primary: "#3367d6"
     highlight-secondary: "#4285f4"
@@ -46,6 +62,8 @@ colors:
     link: "#3273dc"
     link-hover: "#ffdd57"
     background-image: ""
+    box-shadow: rgba(0, 0, 0, 0.145) 0px 4px 8px, rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    web-search-background: "rgba(255, 255, 255, 0.5);"
 
 message: ~
 links: []

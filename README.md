@@ -1,18 +1,28 @@
-<h3>
- <img
-  width="180"
-  alt="Homer's donut"
-  src="https://raw.githubusercontent.com//bastienwirtz/homer/main/public/logo.png">
-    <br/>
-    It's a fork of Homer Dashboard with some changes:
-    <br/>
-    - Added services: Tailscale, Transmission, Nextcloud, Cloudflare
-    <br/>
-    - Added nginx reverse proxy to deal with CORS issues 
-</h3>
+<div align="center">
+  <h1>Homer Dashboard</h1>
+  <img src="https://raw.githubusercontent.com/bastienwirtz/homer/main/public/logo.png" alt="Homer's Donut" width="180" height="180">
+</div>
 
-### Sample nginx config
-```nginx 
+This repository is a fork of the Homer Dashboard with several enhancements and added services.
+
+## Changes Made
+
+We've made the following changes to the original Homer Dashboard:
+
+- Added services:
+    - Tailscale
+    - Transmission
+    - Nextcloud
+    - Cloudflare
+    - Proxmox Backup
+
+- Implemented an nginx reverse proxy to address CORS (Cross-Origin Resource Sharing) issues.
+
+### Sample Nginx Configuration
+
+Here's a sample Nginx configuration to help you get started:
+
+```nginx
 events {
     worker_connections  1024;
 }
@@ -68,12 +78,29 @@ http {
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
+        
+        location /pxbck {
+            rewrite ^/pxbck/(.*) /$1 break;
+            proxy_pass https://proxmox-backup:8007; # update to your proxmox backup host
+            proxy_set_header Host pxbckp.mydomain.home;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+
+        location /ppngx {
+            rewrite ^/ppngx/(.*) /$1 break;
+            proxy_pass http://paperless-ngx:4050; # update to your paperless-ngx host
+            proxy_set_header Host paperless.mydomain.home;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
     }
 
 }
 ```
 
-### Installation witch docker-compose
+### Installation with Docker Compose
+To set up the Homer Dashboard and its dependencies using Docker Compose, use the following docker-compose.yml file:
 ```yaml
 services:
   nginx:
@@ -93,7 +120,8 @@ services:
 
 ```
 
-### Build manually
+### Manual Build
+If you prefer to build the dashboard manually, follow these steps:
 
 ```bash
 # Using yarn
