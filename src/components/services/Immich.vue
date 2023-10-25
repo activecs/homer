@@ -15,10 +15,10 @@
           {{ humanizeSize }}
         </strong>
         <strong
-            v-if="serverError"
-            class="notif errors"
-            title="Connection error to Immich API, check your url and apikey in config.yml"
-        >?</strong
+          v-if="serverError"
+          class="notif errors"
+          title="Connection error to Immich API, check your url and apikey in config.yml"
+          >?</strong
         >
       </div>
     </template>
@@ -56,18 +56,20 @@ export default {
   },
   computed: {
     humanizeSize: function () {
-        let bytes = this.usage;
-      if (Math.abs(bytes) < 1024)
-        return bytes + ' B';
+      let bytes = this.usage;
+      if (Math.abs(bytes) < 1024) return bytes + " B";
 
-        const units = ['KiB', 'MiB', 'GiB', 'TiB'];
-        let u = -1;
-        do {
-                bytes /= 1024;
-                ++u;
-        } while (Math.round(Math.abs(bytes) * 100) / 100 >= 1024 && u < units.length - 1);
+      const units = ["KiB", "MiB", "GiB", "TiB"];
+      let u = -1;
+      do {
+        bytes /= 1024;
+        ++u;
+      } while (
+        Math.round(Math.abs(bytes) * 100) / 100 >= 1024 &&
+        u < units.length - 1
+      );
 
-        return bytes.toFixed(2) + ' ' + units[u];
+      return bytes.toFixed(2) + " " + units[u];
     },
   },
   methods: {

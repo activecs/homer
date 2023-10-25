@@ -177,7 +177,7 @@ In order to use it, you must be using Portainer version 1.11 or later. Generate 
 it to the apikey field.
 By default, every connected environments will be checked. To select specific ones, add an "environments" entry which can be a simple string or an array containing all the selected environments name.
 
-See https://docs.portainer.io/v/ce-2.11/user/account-settings#access-tokens
+See https://docs.portainer.io/api/access#creating-an-access-token
 
 ```yaml
 - name: "Portainer"
@@ -356,7 +356,17 @@ Configuration example:
 
 ## SpeedtestTracker
 
-For the SpeedtestTracker service you just need to define a entry with type `SpeedtestTracker`.
+This service will show the download and upload speeds in Mbit/s and the ping in ms.
+To configure the service, you need to define the url of SpeedtestTracker running and an entry with type `SpeedtestTracker`.
+
+Configuration example:
+
+```yaml
+- name: "Speedtest Tracker"
+  type: "SpeedtestTracker"
+  url: "http://192.168.0.1:8080"
+  target: "_blank"
+```
 
 ## What's up Docker
 

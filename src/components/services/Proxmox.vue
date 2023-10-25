@@ -88,8 +88,14 @@ export default {
     Generic,
   },
   data: () => ({
-    vms: {},
-    lxcs: {},
+    vms: {
+      total: 0,
+      running: 0,
+    },
+    lxcs: {
+      total: 0,
+      running: 0,
+    },
     memoryUsed: 0,
     diskUsed: 0,
     cpuUsed: 0,
