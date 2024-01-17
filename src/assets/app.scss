@@ -190,6 +190,12 @@ body {
       padding: 1.2rem 0.75rem;
     }
 
+    @media screen and (min-width: 1800px) {
+      .container:not(.is-max-desktop):not(.is-max-widescreen) {
+        max-width: 1645px;
+      }
+    }
+
     .message {
       margin-top: 45px;
       box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1);
