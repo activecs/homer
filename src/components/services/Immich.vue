@@ -78,7 +78,7 @@ export default {
         "x-api-key": this.item.apikey,
       };
 
-      this.proxyFetch(`/immich/api/server-info/stats`, { headers })
+      this.proxyFetch(`/immich/api/server/statistics`, { headers })
         .then((stats) => {
           this.photos = stats.photos;
           this.videos = stats.videos;
