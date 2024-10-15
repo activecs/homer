@@ -65,11 +65,6 @@
           @network-status-update="offline = $event"
         />
 
-        <WebSearchInput
-            v-if="config.searchEngines"
-            :engines="config.searchEngines"
-        />
-
         <GetStarted v-if="configurationNeeded" />
 
         <div v-if="!offline">
@@ -173,8 +168,7 @@ export default {
     SearchInput,
     SettingToggle,
     DarkMode,
-    DynamicTheme,
-    WebSearchInput,
+    DynamicTheme
   },
   data: function () {
     return {
